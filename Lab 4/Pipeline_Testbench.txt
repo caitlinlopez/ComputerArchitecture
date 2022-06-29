@@ -1,0 +1,42 @@
+`timescale 1ns / 1ps
+
+//////////////////////////////////////////////////////////////////////////////////
+// Create Date: 04/28/2022 02:25:29 PM
+// Module Name: Pipeline_Testbench
+//////////////////////////////////////////////////////////////////////////////////
+
+module Pipeline_Testbench();
+    reg [7:0] INPUT_1;
+    reg [31:0] INPUT_2;
+    reg clk;
+    wire [7:0] OUTPUT_1;
+    wire [31:0] OUTPUT_2;
+    
+    MEM_WB_Buffer Pipeline_Test(.clock(clk),.Signal_Input(INPUT_1),.Instr_Input(INPUT_2), .Signal_Output(OUTPUT_1), .Instr_Output(OUTPUT_2));
+    
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+        end
+     
+    initial begin
+        INPUT_1 = 8'd255;
+        INPUT_2 = 8'h7F;
+        
+        #50;
+        INPUT_1 = 16'd1025;
+        INPUT_2 = 16'h7F;
+        
+        #50;
+        INPUT_1 = 16'b0000001000000000;
+        INPUT_2 = 32'hFFFF;
+        
+        #50;
+        INPUT_1 = 32'h65535;
+        INPUT_2 = 32'hFFFF_FFF7;
+        
+        #50;
+        
+        $finish;
+    end
+endmodule
