@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module mux_test(A, B, C, D, select, out);
+    input A, B, C, D;
+    input [1:0] select;    //2 bit bus
+    output reg out;        //reg allows a value to be assigned to out
+    
+    // the 'always@' means that every time an input changes, run this body of code again
+    // (so our and gate reruns whenever we change the inputs!)
+    //only works if data inputs are valid
+    always @ (A, B, C, D, select)
+    begin
+        if (select==2'b00)
+            out = A;
+        else if (select==2'b01)
+            out = B;
+        else if (select==2'b10)
+            out = C;
+        else if (select==2'b11)
+            out = D;
+    end   
+endmodule

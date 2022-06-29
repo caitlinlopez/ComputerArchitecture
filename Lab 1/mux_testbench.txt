@@ -1,0 +1,32 @@
+`timescale 1ns / 1ps
+
+module mux_tb();
+    reg A,B,C,D;
+    reg [1:0] sel;
+    wire out;
+    mux_test test(A,B,C,D,sel,out);
+    initial begin
+        //mux input values
+        A = 1;
+        B = 0;
+        C = 1;
+        D = 0;
+        
+        sel = 2'b00;
+        #50
+        
+        sel = 2'b01;
+        #50
+        
+        sel = 2'b10;
+        #50
+        
+        sel = 2'b11;
+        #50
+        
+        B = 1;
+        sel = 2'b01;
+        #50
+        $finish;
+    end
+endmodule
